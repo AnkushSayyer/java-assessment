@@ -1,7 +1,7 @@
 package com.hashmap.assessment.model;
 
-import com.hashmap.assessment.model.Role;
-import com.hashmap.assessment.model.Type;
+import com.hashmap.assessment.model.enums.Role;
+import com.hashmap.assessment.model.enums.Type;
 import lombok.Getter;
 
 @Getter

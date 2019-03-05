@@ -2,22 +2,21 @@ package com.hashmap.assessment.service;
 
 import com.hashmap.assessment.model.Employee;
 import com.hashmap.assessment.model.Info;
-import com.hashmap.assessment.model.Type;
-import com.hashmap.assessment.service.EmailValidator;
+import com.hashmap.assessment.model.enums.Type;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class Manager {
     private List<Employee> employeeList;
     private final int SICK_LEAVE = 5;
     private final int CASUAL_LEAVE = 5;
     private final int PRIVILEGE_LEAVE = 15;
+    Map<String, Employee> employeeMap;
 
     public Manager(){
         employeeList = new ArrayList<>();
+        employeeMap = new HashMap<>();
     }
 
     public String addEmployee(Info info, LocalDate dateOfJoining){
@@ -28,8 +27,9 @@ public class Manager {
 
         Employee emp = new Employee(generateUid(), dateOfJoining, info);
         employeeList.add(emp);
+        employeeMap.put(emp.getId(), emp);
         creditLeaves(emp);
-        return "added";
+        return emp.getId();
     }
 
     private void creditLeaves(Employee emp) {
@@ -78,5 +78,9 @@ public class Manager {
 
     public List<Employee> employeeList(){
         return employeeList;
+    }
+
+    public Map<String, Employee> getEmployeeMap(){
+        return employeeMap;
     }
 }
