@@ -1,5 +1,6 @@
 package com.hashmap.assessment;
 
+import com.hashmap.assessment.model.Employee;
 import com.hashmap.assessment.model.Info;
 import com.hashmap.assessment.model.Role;
 import com.hashmap.assessment.model.Type;
@@ -24,5 +25,19 @@ public class ManagerTest {
         Assert.assertEquals("Invalid Email", manager.addEmployee(info, LocalDate.now()));
 
 
+    }
+
+    @Test
+    public void test2(){
+        Info info = new Info("abc", "y@gmail.com", Type.PERMANENT, Role.ADMIN);
+        manager.addEmployee(info, LocalDate.now());
+        Assert.assertEquals(25, manager.employeeList().get(manager.employeeList().size()-1).getLeave().getTotalLeaves());
+    }
+
+    @Test
+    public void test3(){
+        Info info = new Info("abc", "y@gmail.com", Type.PROBATION, Role.ADMIN);
+        manager.addEmployee(info, LocalDate.now());
+        Assert.assertEquals(0, manager.employeeList().get(manager.employeeList().size()-1).getLeave().getTotalLeaves());
     }
 }

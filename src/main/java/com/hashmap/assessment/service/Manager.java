@@ -12,6 +12,9 @@ import java.util.UUID;
 
 public class Manager {
     private List<Employee> employeeList;
+    private final int SICK_LEAVE = 5;
+    private final int CASUAL_LEAVE = 5;
+    private final int PRIVILEGE_LEAVE = 15;
 
     public Manager(){
         employeeList = new ArrayList<>();
@@ -25,7 +28,28 @@ public class Manager {
 
         Employee emp = new Employee(generateUid(), dateOfJoining, info);
         employeeList.add(emp);
+        creditLeaves(emp);
         return "added";
+    }
+
+    private void creditLeaves(Employee emp) {
+        if (emp.getInfo().getType().equals(Type.PERMANENT)) {
+            setPermanentHolidays(emp);
+        }
+        else
+            setProbationHolidays(emp);
+    }
+
+    private void setProbationHolidays(Employee emp) {
+        emp.getLeave().setSickLeave(0);
+        emp.getLeave().setCasualLeave(0);
+        emp.getLeave().setPrivilegeLeave(0);
+    }
+
+    private void setPermanentHolidays(Employee emp) {
+        emp.getLeave().setSickLeave(SICK_LEAVE);
+        emp.getLeave().setCasualLeave(CASUAL_LEAVE);
+        emp.getLeave().setPrivilegeLeave(PRIVILEGE_LEAVE);
     }
 
     private boolean checkName(Info info) {
@@ -50,5 +74,9 @@ public class Manager {
             if (LocalDate.now().isAfter(tempDate))
                 employee.getInfo().setType(Type.PERMANENT);
         }
+    }
+
+    public List<Employee> employeeList(){
+        return employeeList;
     }
 }
