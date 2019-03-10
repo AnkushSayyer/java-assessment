@@ -9,8 +9,8 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class LeaveService {
-    Map<LocalDate, String> holidayMap;
-    Map<String, Employee> employeeMap;
+    private Map<LocalDate, String> holidayMap;
+    private Map<String, Employee> employeeMap;
     private int leaveDays = 0;
 
     public LeaveService(){
@@ -40,12 +40,16 @@ public class LeaveService {
         LocalDate tempDate = from;
 
         while (!tempDate.equals(to)){
-            if (!(tempDate.getDayOfWeek()== DayOfWeek.SATURDAY||tempDate.getDayOfWeek()==DayOfWeek.SUNDAY)
-                 && !holidayMap.containsKey(tempDate)
-                )
-                leaveDays++;
+            incrementLeaveDays(tempDate);
             tempDate = tempDate.plusDays(1);
         }
         return leaveDays++;
+    }
+
+    private void incrementLeaveDays(LocalDate tempDate) {
+        if (!(tempDate.getDayOfWeek()== DayOfWeek.SATURDAY||tempDate.getDayOfWeek()==DayOfWeek.SUNDAY)
+             && !holidayMap.containsKey(tempDate)
+            )
+            leaveDays++;
     }
 }
