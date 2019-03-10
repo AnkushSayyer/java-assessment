@@ -1,5 +1,5 @@
 package com.hashmap.assessment.model.enums;
 
-public enum Role {
+public enum EmpRole {
     ADMIN, NON_ADMIN
 }

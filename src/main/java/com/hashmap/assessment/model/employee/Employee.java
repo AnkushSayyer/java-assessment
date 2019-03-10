@@ -1,15 +1,18 @@
-package com.hashmap.assessment.model;
+package com.hashmap.assessment.model.employee;
 
+import com.hashmap.assessment.model.enums.EmpRole;
+import com.hashmap.assessment.model.enums.LeaveType;
 import com.hashmap.assessment.service.HolidayService;
-import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 public class Employee {
     private String id;
     private LocalDate dateOfJoining;
     private Info info;
-    Leave leave;
+    private Map<LeaveType, Integer> leaveMap;
+
     HolidayService holidayService;
 
     public Employee(String id, LocalDate dateOfJoining, Info info) {
@@ -17,7 +20,14 @@ public class Employee {
         this.dateOfJoining = dateOfJoining;
         this.info = info;
         holidayService = new HolidayService();
-        leave = new Leave(0,0,0);
+    }
+
+    public Map<LeaveType, Integer> getLeaveMap() {
+        return leaveMap;
+    }
+
+    public void setLeaveMap(Map<LeaveType, Integer> leaveMap) {
+        this.leaveMap = leaveMap;
     }
 
     public String getId() {
@@ -32,7 +42,8 @@ public class Employee {
         return info;
     }
 
-    public Leave getLeave(){
-        return leave;
+    public void addHoliday(LocalDate date, String occassion){
+        if(this.info.getEmpRole() == EmpRole.ADMIN)
+            holidayService.addHoliday(date, occassion);
     }
 }

@@ -1,7 +1,5 @@
 package com.hashmap.assessment.service;
 
-import com.hashmap.assessment.model.Holiday;
-
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
@@ -12,7 +10,11 @@ public class HolidayService {
     private Map<LocalDate, String> holidayMap;
 
     public HolidayService(){
-        holidayMap = Holiday.getInstance().getHolidayMap();
+        holidayMap = DatabaseService.getInstance().getHolidayMap();
+    }
+
+    public void addHoliday(LocalDate date, String occassion){
+        holidayMap.put(date, occassion);
     }
 
     public void getMonthlyHolidays(Month month){

@@ -1,5 +1,5 @@
 package com.hashmap.assessment.model.enums;
 
-public enum Type {
+public enum EmpType {
     PERMANENT, PROBATION
 }
