@@ -62,8 +62,7 @@ public class Manager {
 
     private void updateType(){
         Map<String, Employee> employeeMap = databaseService.getEmployeeMap();
-        for (String employeeId : employeeMap.keySet()){
-            Employee employee = employeeMap.get(employeeId);
+        for (Employee employee : employeeMap.values()){
             LocalDate tempDate = employee.getDateOfJoining().plusMonths(6);
             if (LocalDate.now().isAfter(tempDate))
                 employee.getInfo().setEmpType(EmpType.PERMANENT);
